@@ -132,9 +132,9 @@ export default registerBlockType(
                     let boardMemberName = '';
 
                     if( website ) {
-                         boardMemberName = <h2><a href={website} target="_blank" class="board-member-website"><span class="board-member-name">{ name }</span></a>{title && <span>, </span>}<span class="board-member-title">{title}</span></h2>;
+                         boardMemberName = <h4><a href={website} target="_blank" class="board-member-website"><span class="board-member-name">{ name }</span></a>{title && <span>, </span>}<span class="board-member-title">{title}</span></h4>;
                     } else {
-                         boardMemberName = <h2><span class="board-member-name">{ name }</span>{title && <span>, </span>}<span class="board-member-title">{title}</span></h2>;
+                         boardMemberName = <h4><span class="board-member-name">{ name }</span>{title && <span>, </span>}<span class="board-member-title">{title}</span></h4>;
                     }
 
                     let websitePublish;
