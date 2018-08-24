@@ -15,7 +15,7 @@ const {
     registerBlockType,
 } = wp.blocks;
 const {
-    InspectorControls, RichText,
+    InspectorControls, RichText, UrlInput,
 } = wp.editor;
 const {
      Toolbar,
@@ -61,9 +61,9 @@ export default registerBlockType(
                 selector: '.board-member-title',
              },
              website: {
-                type: 'string',
-                source: 'text',
-                selector: '.board-member-website',
+                  type: 'string',
+                 source: 'text',
+                 selector: '.board-member-website',
              },
              bio: {
                  type: 'array',
@@ -123,18 +123,35 @@ export default registerBlockType(
         },
         save: props => {
                     const { attributes: { name, title, website, bio } } = props;
+
+                    // let publishedName = name;
+                    // if( title ) {
+                    //      publishedName = name + ', <span class="board-member-title">' + title + '</span>';
+                    // }
+
+                    let boardMemberName = '';
+
+                    if( website ) {
+                         boardMemberName = <h2><a href={website} target="_blank" class="board-member-website"><span class="board-member-name">{ name }</span></a>{title && <span>, </span>}<span class="board-member-title">{title}</span></h2>;
+                    } else {
+                         boardMemberName = <h2><span class="board-member-name">{ name }</span>{title && <span>, </span>}<span class="board-member-title">{title}</span></h2>;
+                    }
+
+                    let websitePublish;
+                    if( website ) {
+                         websitePublish = <a href={website} target="_blank"><span class="board-member-website">{website}</span></a>;
+                    } else {
+                         websitePublish = <span class="board-member-website">{website}</span>;
+                    }
+
                     return (
                         <div class="board-member-area">
-                             <div class="board-member-name">
-                                 <h2>{ name }</h2>
+                             <div class="board-member-name-area">
+                                 <h2><span class="board-member-name">{ name }</span>{title && <span>, </span>}<span class="board-member-title">{title}</span></h2>
                              </div>
-                             <div class="board-member-title">
-                                 { title }
+                             <div class="board-member-website-area">
+                                 {websitePublish}
                              </div>
-                             <div class="board-member-website">
-                                 { website }
-                             </div>
-                            <div class="bio-header">Bio</div>
                             <div class="board-member-bio-body">
                                 { bio }
                             </div>
